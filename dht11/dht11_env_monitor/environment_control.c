@@ -43,15 +43,24 @@ int main(int argc, char *argv[]){
     signal(SIGINT, int_handler);
 
     while (keep_running){
+        time_t current_time;
+        char* c_time_string;
+        current_time = time(NULL);
+        c_time_string = ctime(&current_time);
+       
         EnvData env_data = read_env(dht_pin);
-
+        
         if (env_data.temp > temp_high){
-            time_t current_time;
-            char* c_time_string;
-            current_time = time(NULL);
-            c_time_string = ctime(&current_time);
-
-            printf("temp high: %.1f > %.1f at %s", env_data.temp, temp_high, c_time_string);
+            printf(
+                "temp high: %.1f > %.1f at %s", 
+                env_data.temp, temp_high, c_time_string
+            );
+        }
+        if (env_data.humidity > humidity_low){
+            printf(
+                "humidity low: %.1f < %.1f at %s", 
+                humidity_low, env_data.humidity, c_time_string
+            );
         }
         delay(3000);
     }
