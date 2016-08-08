@@ -1,0 +1,3 @@
+#!/bin/sh
+gcc -c -o environment_control_lib.o environment_control_lib.c
+gcc -o envctl environment_control.c environment_control_lib.o -lwiringPi -lpthread
